@@ -1,3 +1,4 @@
+import 'package:dev_venture/components/venture_timer.dart';
 import 'package:flutter/material.dart';
 
 class ThemeDemoPage extends StatefulWidget {
@@ -89,6 +90,22 @@ class _ThemeDemoPageState extends State<ThemeDemoPage> {
                 ),
               ),
 
+              SizedBox(height: 12),
+
+              //Exemplo de uso de componente próprio
+              VentureTimer(
+                initialSeconds: 20,
+                onFinished: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AlertDialog(
+                        title: Text("Timer Has Finished"),
+                      );
+                    },
+                  );
+                },
+              ),
               SizedBox(height: 12),
               SwitchListTile(
                 title: const Text('Switch'),
