@@ -1,3 +1,4 @@
+import 'package:dev_venture/components/input_text.dart';
 import 'package:dev_venture/components/text_field.dart';
 import 'package:dev_venture/components/venture_timer.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,16 @@ class ThemeDemoPage extends StatefulWidget {
 
 class _ThemeDemoPageState extends State<ThemeDemoPage> {
   final _customTextFieldController = TextEditingController();
+  final _customInputTextController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  void _handleOnFormSubmit() {
+    if (_formKey.currentState!.validate()) {
+      print("Valor do Textfield custom: ${_customTextFieldController.text}");
+      print("Valor do inputText custom: ${_customInputTextController.text}");
+    }
+  }
+
   bool _switchValue = true;
   bool _checkboxValue = false;
   int _radioValue = 0;
@@ -21,10 +32,6 @@ class _ThemeDemoPageState extends State<ThemeDemoPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    void _handleOnFormSubmit() {
-      print("Valor do Textfield custom: ${_customTextFieldController.text}");
-    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Theme components demo')),
@@ -87,34 +94,52 @@ class _ThemeDemoPageState extends State<ThemeDemoPage> {
               ),
 
               SizedBox(height: 16),
-              const Text('Form inputs'),
-              SizedBox(height: 8),
-              TextField(
-                decoration: const InputDecoration(
-                  labelText: 'TextField',
-                  hintText: 'Placeholder',
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const Text('Form inputs'),
+                    SizedBox(height: 8),
+                    TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'TextField',
+                        hintText: 'Placeholder',
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    CustomTextField(
+                      hintText: "Custom Text Field",
+                      labelText: "Custom Header",
+                      controller: _customTextFieldController,
+                    ),
+                    SizedBox(height: 12),
+                    CustomInputText(
+                      label: "Custom Input Text",
+                      controller: _customInputTextController,
+                      hintText: "This is hint Text",
+                      isPassword: true,
+                      validator: (str) {
+                        print("Str: $str");
+                        return "Que retorno é esse";
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    //Exemplo de uso de componente próprio
+                    VentureTimer(
+                      initialSeconds: 20,
+                      onFinished: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const AlertDialog(
+                              title: Text("Timer Has Finished"),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 12),
-              CustomTextField(
-                hintText: "Custom Text Field",
-                labelText: "Custom Header",
-                controller: _customTextFieldController,
-              ),
-              SizedBox(height: 12),
-              //Exemplo de uso de componente próprio
-              VentureTimer(
-                initialSeconds: 20,
-                onFinished: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const AlertDialog(
-                        title: Text("Timer Has Finished"),
-                      );
-                    },
-                  );
-                },
               ),
               SizedBox(height: 12),
               SwitchListTile(
