@@ -2,6 +2,7 @@ import 'package:dev_venture/components/drag_drop/draggable_block.dart';
 import 'package:dev_venture/components/drag_drop/drop_target_zone.dart';
 import 'package:dev_venture/components/input_text.dart';
 import 'package:dev_venture/components/multi_selection.dart';
+import 'package:dev_venture/components/selection_unica.dart';
 import 'package:dev_venture/components/text_field.dart';
 import 'package:dev_venture/components/venture_timer.dart';
 import 'package:flutter/material.dart';
@@ -165,6 +166,7 @@ class _ThemeDemoPageState extends State<ThemeDemoPage> {
                 ],
                 onChange: _handleOnMultiSelectChange,
               ),
+              SingleSelection(),
 
               DraggableBlock(
                 label: "Bloco de Teste 1",
