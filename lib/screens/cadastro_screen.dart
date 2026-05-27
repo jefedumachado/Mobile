@@ -37,7 +37,6 @@ class CadastroScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
 
               children: [
-
                 Icon(
                   Icons.person_add_alt_1,
                   size: 64,
@@ -137,7 +136,9 @@ class CadastroScreen extends StatelessWidget {
                 ButtonComponent(
                   text: 'Cadastrar',
                   icon: Icons.arrow_forward,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/activities');
+                  },
                 ),
 
                 const SizedBox(height: 12),
@@ -148,9 +149,7 @@ class CadastroScreen extends StatelessWidget {
                   child: Text(
                     'Já tenho conta',
 
-                    style: TextStyle(
-                      color: theme.colorScheme.primary,
-                    ),
+                    style: TextStyle(color: theme.colorScheme.primary),
                   ),
                 ),
               ],
