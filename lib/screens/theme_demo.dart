@@ -1,0 +1,223 @@
+import 'package:flutter/material.dart';
+
+class ThemeDemoPage extends StatefulWidget {
+  const ThemeDemoPage({super.key});
+
+  @override
+  State<ThemeDemoPage> createState() => _ThemeDemoPageState();
+}
+
+class _ThemeDemoPageState extends State<ThemeDemoPage> {
+  bool _switchValue = true;
+  bool _checkboxValue = false;
+  int _radioValue = 0;
+  double _sliderValue = 40;
+  int _navIndex = 0;
+  bool _chipSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Theme components demo')),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _navIndex,
+        onDestinationSelected: (i) => setState(() => _navIndex = i),
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.search), label: 'Search'),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Typography', style: theme.textTheme.titleLarge),
+              SizedBox(height: 8),
+              Text(
+                'Headline: ${theme.textTheme.headlineSmall?.fontSize ?? ''}',
+                style: theme.textTheme.headlineSmall,
+              ),
+              SizedBox(height: 16),
+
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Elevated'),
+                  ),
+                  SizedBox(width: 8),
+                  OutlinedButton(
+                    onPressed: () {},
+                    child: const Text('Outlined'),
+                  ),
+                  SizedBox(width: 8),
+                  TextButton(onPressed: () {}, child: const Text('Text')),
+                ],
+              ),
+
+              SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.info),
+                        title: Text('Card Title'),
+                        subtitle: Text(
+                          'Card subtitle to show surface styling.',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 16),
+              const Text('Form inputs'),
+              SizedBox(height: 8),
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'TextField',
+                  hintText: 'Placeholder',
+                ),
+              ),
+
+              SizedBox(height: 12),
+              SwitchListTile(
+                title: const Text('Switch'),
+                value: _switchValue,
+                onChanged: (v) => setState(() => _switchValue = v),
+              ),
+
+              CheckboxListTile(
+                title: const Text('Checkbox'),
+                value: _checkboxValue,
+                onChanged: (v) => setState(() => _checkboxValue = v ?? false),
+              ),
+
+              Column(
+                children: List.generate(
+                  3,
+                  (i) => RadioListTile<int>(
+                    title: Text('Option ${i + 1}'),
+                    value: i,
+                    groupValue: _radioValue,
+                    onChanged: (v) => setState(() => _radioValue = v ?? 0),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  const Text('Slider:'),
+                  Expanded(
+                    child: Slider(
+                      value: _sliderValue,
+                      min: 0,
+                      max: 100,
+                      divisions: 10,
+                      label: _sliderValue.round().toString(),
+                      onChanged: (v) => setState(() => _sliderValue = v),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  const Chip(label: Text('Default Chip')),
+                  ActionChip(label: const Text('Action'), onPressed: () {}),
+                  ChoiceChip(
+                    label: const Text('Choice'),
+                    selected: _chipSelected,
+                    onSelected: (s) => setState(() => _chipSelected = s),
+                  ),
+                  FilterChip(
+                    label: const Text('Filter'),
+                    selected: _chipSelected,
+                    onSelected: (s) => setState(() => _chipSelected = s),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 16),
+              const Text('Lists & Tiles'),
+              SizedBox(height: 8),
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('List item'),
+                trailing: IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () {},
+                ),
+              ),
+
+              SizedBox(height: 16),
+              const Text('Misc'),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  FloatingActionButton.small(
+                    onPressed: () {},
+                    child: const Icon(Icons.edit),
+                  ),
+                  SizedBox(width: 12),
+                  const Chip(
+                    label: Text('Badge-like'),
+                    avatar: CircleAvatar(child: Text('3')),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 24),
+
+              DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    const TabBar(
+                      tabs: [
+                        Tab(icon: Icon(Icons.code), text: 'Tab1'),
+                        Tab(icon: Icon(Icons.desktop_mac), text: 'Tab2'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 120,
+                      child: TabBarView(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Tab 1 content',
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              'Tab 2 content',
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
