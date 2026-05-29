@@ -1,7 +1,10 @@
+import 'package:dev_venture/screens/home_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:dev_venture/theme/dark_theme.dart';
 import 'package:dev_venture/theme/light_theme.dart';
-import 'package:dev_venture/screens/true_false_demo.dart';
-import 'package:flutter/material.dart';
+import 'package:dev_venture/screens/theme_demo.dart';
+import 'package:dev_venture/screens/activities_screen.dart';
+import 'package:dev_venture/screens/cadastro_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,15 +13,23 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dev Venture',
       theme: AppLightTheme.theme,
       darkTheme: AppDarkTheme.theme,
       themeMode: ThemeMode.system,
-      home: const TrueFalseDemoPage(),
+
+      // TELA INICIAL
+      home: const CadastroScreen(),
+
+      // ROTAS
+      routes: {
+        '/home': (context) => const HomeScreen(),
+        '/activities': (context) => ActivitiesScreen(),
+        '/theme-demo': (context) => const ThemeDemoPage(),
+      },
     );
   }
 }
