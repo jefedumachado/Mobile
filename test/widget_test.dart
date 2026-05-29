@@ -6,8 +6,6 @@ void main() {
   testWidgets('true/false question validates answer and allows retry', (
     WidgetTester tester,
   ) async {
-    // Increase the test window size so the long demo page fits and taps hit targets.
-    final binding = TestWidgetsFlutterBinding.ensureInitialized();
     tester.view.physicalSize = const Size(1080, 1920);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(() {
