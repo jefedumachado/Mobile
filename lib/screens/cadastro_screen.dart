@@ -140,11 +140,20 @@ class CadastroScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/home');
                   },
                 ),
+                const SizedBox(height: 24),
                 ButtonComponent(
                   text: 'Atividades',
                   icon: Icons.arrow_forward,
                   onPressed: () {
                     Navigator.pushNamed(context, '/activities');
+                  },
+                ),
+                const SizedBox(height: 24),
+                ButtonComponent(
+                  text: 'Demo Base',
+                  icon: Icons.arrow_forward,
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/theme-demo');
                   },
                 ),
 
