@@ -77,8 +77,9 @@ class _TrueFalseQuestionState extends State<TrueFalseQuestion> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final bool? isCorrect =
-        _answered ? _selectedAnswer == widget.correctAnswer : null;
+    final bool? isCorrect = _answered
+        ? _selectedAnswer == widget.correctAnswer
+        : null;
 
     return Card(
       margin: const EdgeInsets.all(16),
@@ -94,16 +95,12 @@ class _TrueFalseQuestionState extends State<TrueFalseQuestion> {
             ),
             const SizedBox(height: 24),
             _buildOptionButton(
-              context,
+              context: context,
               label: 'Verdadeiro',
               answer: true,
             ),
             const SizedBox(height: 12),
-            _buildOptionButton(
-              context,
-              label: 'Falso',
-              answer: false,
-            ),
+            _buildOptionButton(context: context, label: 'Falso', answer: false),
             if (_answered) ...[
               const SizedBox(height: 20),
               Container(
@@ -128,15 +125,12 @@ class _TrueFalseQuestionState extends State<TrueFalseQuestion> {
                         isCorrect == true
                             ? 'Correto! Você acertou a questão.'
                             : 'Incorreto. Tente novamente.',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
-                              color: isCorrect == true
-                                  ? scheme.onPrimaryContainer
-                                  : scheme.onErrorContainer,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: isCorrect == true
+                              ? scheme.onPrimaryContainer
+                              : scheme.onErrorContainer,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],

@@ -1,9 +1,11 @@
 import 'package:dev_venture/components/drag_drop/draggable_block.dart';
 import 'package:dev_venture/components/drag_drop/drop_target_zone.dart';
 import 'package:dev_venture/components/input_text.dart';
+import 'package:dev_venture/components/metric_tile_component.dart';
 import 'package:dev_venture/components/multi_selection.dart';
 import 'package:dev_venture/components/selection_unica.dart';
 import 'package:dev_venture/components/text_field.dart';
+import 'package:dev_venture/components/true_false_question.dart';
 import 'package:dev_venture/components/venture_timer.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +32,18 @@ class _ThemeDemoPageState extends State<ThemeDemoPage> {
     for (String str in selections) {
       print("Selected: $str");
     }
+  }
+
+  int _score = 0;
+  int _attempts = 0;
+
+  void _onAnswered(bool isCorrect) {
+    setState(() {
+      _attempts++;
+      if (isCorrect) {
+        _score++;
+      }
+    });
   }
 
   bool _switchValue = true;
@@ -181,6 +195,44 @@ class _ThemeDemoPageState extends State<ThemeDemoPage> {
                     SnackBar(content: Text('Você soltou o: $data')),
                   );
                 },
+              ),
+              SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                MetricTile(
+                                  label: 'Acertos',
+                                  value: _score.toString(),
+                                  accent: theme.colorScheme.primary,
+                                ),
+                                MetricTile(
+                                  label: 'Tentativas',
+                                  value: _attempts.toString(),
+                                  accent: theme.colorScheme.secondary,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      TrueFalseQuestion(
+                        question: 'Flutter é um framework criado pelo Google?',
+                        correctAnswer: true,
+                        onAnswered: _onAnswered,
+                      ),
+                    ],
+                  ),
+                ),
               ),
 
               SwitchListTile(
