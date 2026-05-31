@@ -30,10 +30,13 @@ class ActivitiesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Lista de Atividades"),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor: theme.colorScheme.onPrimary,
       ),
 
       body: Padding(
@@ -58,7 +61,7 @@ class ActivitiesScreen extends StatelessWidget {
 
                 title: Text(
                   activity["title"],
-                  style: const TextStyle(
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -66,10 +69,15 @@ class ActivitiesScreen extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(activity["description"]),
+                    Text(
+                      activity["description"],
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
                     Text(
                       activity["status"],
-                      style: TextStyle(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: activity["color"],
                         fontWeight: FontWeight.bold,
                       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final VoidCallback onThemeChanged;
   final ThemeMode themeMode;
 
@@ -11,13 +11,18 @@ class HomeScreen extends StatelessWidget {
   });
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     IconData iconTheme;
-    if (themeMode == ThemeMode.system) {
+    if (widget.themeMode == ThemeMode.system) {
       iconTheme = Icons.brightness_auto;
-    } else if (themeMode == ThemeMode.light) {
+    } else if (widget.themeMode == ThemeMode.light) {
       iconTheme = Icons.wb_sunny;
     } else {
       iconTheme = Icons.nightlight_round;
@@ -31,8 +36,8 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(iconTheme),
-            tooltip: 'Tema: ${themeMode.name}',
-            onPressed: onThemeChanged,
+            tooltip: 'Tema: ${widget.themeMode.name}',
+            onPressed: widget.onThemeChanged,
           ),
         ],
       ),
@@ -190,39 +195,45 @@ class HomeScreen extends StatelessWidget {
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Icon(
-                Icons.code,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, '/activities');
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              ListTile(
+                leading: Icon(
+                  Icons.code,
+                  color: theme.colorScheme.primary,
+                  size: 40,
+                ),
+                title: Text(
+                  title,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              LinearProgressIndicator(
+                value: progress,
+                minHeight: 8,
                 color: theme.colorScheme.primary,
-                size: 40,
+                backgroundColor: theme.colorScheme.primaryContainer,
               ),
-              title: Text(
-                title,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                subtitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            LinearProgressIndicator(
-              value: progress,
-              minHeight: 8,
-              color: theme.colorScheme.primary,
-              backgroundColor: theme.colorScheme.primaryContainer,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

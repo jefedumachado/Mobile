@@ -198,15 +198,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         Navigator.pushNamed(context, '/home');
                       },
                     ),
-                    const SizedBox(height: 24),
-                    ButtonComponent(
-                      text: 'Atividades',
-                      icon: Icons.arrow_forward,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/activities');
-                      },
-                    ),
-
                     const SizedBox(height: 12),
 
                     TextButton(
