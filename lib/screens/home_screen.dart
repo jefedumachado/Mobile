@@ -15,6 +15,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<Map<String, dynamic>> _trilhas = [
+    {
+      "title": "Dart",
+      "description": "Domine a sintaxe fundamental, coleções...",
+      "progress": 0.7,
+    },
+    {
+      "title": "Flutter",
+      "description": "Desenvolva interfaces de alta performance...",
+      "progress": 0.4,
+    },
+    {
+      "title": "Firebase",
+      "description": "Integre autenticação e banco de dados...",
+      "progress": 0.2,
+    },
+    {
+      "title": "Android",
+      "description": "Configuração de ambiente para desenvolvimento Android...",
+      "progress": 0.67,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -140,23 +163,19 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 15),
 
             // CARDS DAS TRILHAS
-            _buildTrilhaCard(
-              "Dart",
-              "Domine a sintaxe fundamental, coleções...",
-              0.7,
-              theme,
-            ),
-            _buildTrilhaCard(
-              "Flutter",
-              "Desenvolva interfaces de alta performance...",
-              0.4,
-              theme,
-            ),
-            _buildTrilhaCard(
-              "Firebase",
-              "Integre autenticação e banco de dados...",
-              0.2,
-              theme,
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _trilhas.length,
+              itemBuilder: (context, index) {
+                final trilha = _trilhas[index];
+                return _buildTrilhaCard(
+                  trilha['title'],
+                  trilha['description'],
+                  trilha['progress'],
+                  theme,
+                );
+              },
             ),
 
             const SizedBox(height: 20),
