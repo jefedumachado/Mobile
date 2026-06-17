@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import 'package:cloud_firestore/cloud_firestore.dart';
-=======
->>>>>>> a11ac6b151094e71f8a974b70c51c03d19eb0bba
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
@@ -9,20 +5,14 @@ class UserModel {
   final String nome;
   final String email;
   final DateTime criadoEm;
-<<<<<<< HEAD
   final int pontos; // Adicionado para rastrear os pontos localmente se necessário
-=======
->>>>>>> a11ac6b151094e71f8a974b70c51c03d19eb0bba
 
   UserModel({
     required this.id,
     required this.nome,
     required this.email,
     required this.criadoEm,
-<<<<<<< HEAD
     this.pontos = 0, // Padrão começa com 0
-=======
->>>>>>> a11ac6b151094e71f8a974b70c51c03d19eb0bba
   });
 
   factory UserModel.fromFirebaseUser(User user) {
@@ -31,7 +21,6 @@ class UserModel {
       nome: user.displayName ?? '',
       email: user.email ?? '',
       criadoEm: user.metadata.creationTime ?? DateTime.now(),
-<<<<<<< HEAD
       pontos: 0,
     );
   }
@@ -54,8 +43,3 @@ class UserModel {
     }
   }
 }
-=======
-    );
-  }
-}
->>>>>>> a11ac6b151094e71f8a974b70c51c03d19eb0bba
