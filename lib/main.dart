@@ -5,8 +5,12 @@ import 'package:dev_venture/theme/light_theme.dart';
 import 'package:dev_venture/screens/theme_demo.dart';
 import 'package:dev_venture/screens/activities_screen.dart';
 import 'package:dev_venture/screens/cadastro_screen.dart';
+import 'package:dev_venture/screens/ranking_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -48,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         '/home': (context) =>
             HomeScreen(onThemeChanged: _onThemeChange, themeMode: _themeMode),
         '/activities': (context) => ActivitiesScreen(),
+        '/ranking': (context) => const RankingScreen(),
         '/theme-demo': (context) => const ThemeDemoPage(),
       },
     );

@@ -53,10 +53,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dev Venture"),
+        title: const Text("Dev Venture"),
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: theme.colorScheme.onPrimary,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.leaderboard),
+            tooltip: 'Ranking',
+            onPressed: () {
+              Navigator.pushNamed(context, '/ranking');
+            },
+          ),
           IconButton(
             icon: Icon(iconTheme),
             tooltip: 'Tema: ${widget.themeMode.name}',
