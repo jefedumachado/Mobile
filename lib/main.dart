@@ -1,9 +1,9 @@
+import 'package:dev_venture/screens/home_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:dev_venture/theme/dark_theme.dart';
 import 'package:dev_venture/theme/light_theme.dart';
 import 'package:dev_venture/screens/theme_demo.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart'; // gerado pelo FlutterFire CLI
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,74 +13,47 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: AppLightTheme.theme,
-      darkTheme: AppDarkTheme.theme,
-      themeMode: ThemeMode.system,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.system;
 
-  void _incrementCounter() {
+  void _onThemeChange() {
     setState(() {
-      _counter++;
+      if (_themeMode == ThemeMode.system) {
+        _themeMode = ThemeMode.light;
+      } else if (_themeMode == ThemeMode.light) {
+        _themeMode = ThemeMode.dark;
+      } else {
+        _themeMode = ThemeMode.system; // Do dark, volta para o sistema
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            tooltip: 'Open theme demo',
-            icon: const Icon(Icons.palette),
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (_) => const ThemeDemoPage()));
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+    return MaterialApp(
+      title: 'Dev Venture',
+      theme: AppLightTheme.theme,
+      darkTheme: AppDarkTheme.theme,
+      themeMode: _themeMode,
+
+      // TELA INICIAL
+      home: const CadastroScreen(),
+
+      // ROTAS
+      routes: {
+        '/home': (context) =>
+            HomeScreen(onThemeChanged: _onThemeChange, themeMode: _themeMode),
+        '/activities': (context) => ActivitiesScreen(),
+        '/theme-demo': (context) => const ThemeDemoPage(),
+      },
     );
   }
 }
