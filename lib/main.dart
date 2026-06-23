@@ -5,8 +5,14 @@ import 'package:dev_venture/theme/light_theme.dart';
 import 'package:dev_venture/screens/theme_demo.dart';
 import 'package:dev_venture/screens/activities_screen.dart';
 import 'package:dev_venture/screens/cadastro_screen.dart';
+import 'package:dev_venture/utils/performance/frame_monitor.dart';
+import 'package:dev_venture/utils/performance/perf_navigator_observer.dart';
 
 void main() {
+// Necessário para usar bindings
+  WidgetsFlutterBinding.ensureInitialized();
+// Começa a contar os frames perdidos assim que o app sobe
+  FrameMonitor.instance.start();  
   runApp(const MyApp());
 }
 
@@ -39,6 +45,9 @@ class _MyAppState extends State<MyApp> {
       theme: AppLightTheme.theme,
       darkTheme: AppDarkTheme.theme,
       themeMode: _themeMode,
+
+      // Mede o tempo de abertura de cada tela 
+      navigatorObservers: [PerfNavigatorObserver()],
 
       // TELA INICIAL
       home: const CadastroScreen(),
