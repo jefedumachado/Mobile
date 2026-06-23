@@ -1,4 +1,4 @@
-import 'package:flutter/materiagit add lib/screens/activities_screen.dartl.dart';
+import 'package:flutter/material.dart';
 import 'package:dev_venture/screens/theme_demo.dart';
 
 class ActivitiesScreen extends StatelessWidget {
