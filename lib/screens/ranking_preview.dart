@@ -47,7 +47,9 @@ class RankingScreen extends StatelessWidget {
               String nomeJogador = data['nome'] ?? 'Jogador Anônimo';
               int pontuacao = data['pontuacao'] ?? 0;
 
-              return ListTile(
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: ListTile(
                 leading: CircleAvatar(
                   child: Text('${index + 1}º'),
                 ),
@@ -57,8 +59,13 @@ class RankingScreen extends StatelessWidget {
                 ),
                 trailing: Text(
                   '$pontuacao pts',
-                  style: const TextStyle(fontSize: 16, color: Colors.green),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+               ),
               );
             },
           );

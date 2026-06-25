@@ -113,12 +113,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           "Nome Aluno",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           "Nível 14 - ARQUIMAGO",
+                           overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
