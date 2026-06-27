@@ -11,11 +11,38 @@ service cloud.firestore {
     }
 
     function sensitiveFields() {
-      return ['points', 'level', 'role'];
+      return ['points', 'level', 'pontuacao', 'nivel', 'role'];
     }
 
     function userImmutableFields() {
-      return ['id', 'points', 'level', 'role'];
+      return ['id', 'points', 'level', 'pontuacao', 'nivel', 'role'];
+    }
+
+    function userFields() {
+      return [
+        'id',
+        'nome',
+        'email',
+        'criadoEm',
+        'level',
+        'points',
+        'nivel',
+        'pontuacao',
+        'role'
+      ];
+    }
+
+    function userScoreFieldsAreValidOnCreate() {
+      return (
+          request.resource.data.keys().hasAll(['points', 'level'])
+          && request.resource.data.points == 0
+          && request.resource.data.level == 'junior'
+        )
+        || (
+          request.resource.data.keys().hasAll(['pontuacao', 'nivel'])
+          && request.resource.data.pontuacao == 0
+          && request.resource.data.nivel == 'junior'
+        );
     }
 
     function ownsExistingAlunoData() {
@@ -45,27 +72,16 @@ service cloud.firestore {
 
     function userCreateIsValid(userId) {
       return isCurrentUser(userId)
-        && request.resource.data.keys().hasOnly([
-          'id',
-          'nome',
-          'email',
-          'criadoEm',
-          'level',
-          'points',
-          'role'
-        ])
+        && request.resource.data.keys().hasOnly(userFields())
         && request.resource.data.keys().hasAll([
           'id',
           'nome',
           'email',
           'criadoEm',
-          'level',
-          'points',
           'role'
         ])
         && request.resource.data.id == userId
-        && request.resource.data.points == 0
-        && request.resource.data.level == 'junior'
+        && userScoreFieldsAreValidOnCreate()
         && request.resource.data.role == 'student';
     }
 
@@ -73,15 +89,7 @@ service cloud.firestore {
       return isCurrentUser(userId)
         && resource.data.id == userId
         && request.resource.data.id == userId
-        && request.resource.data.keys().hasOnly([
-          'id',
-          'nome',
-          'email',
-          'criadoEm',
-          'level',
-          'points',
-          'role'
-        ])
+        && request.resource.data.keys().hasOnly(userFields())
         && !request.resource.data.diff(resource.data)
           .affectedKeys()
           .hasAny(userImmutableFields());
@@ -167,7 +175,8 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow read: if isCurrentUser(userId);
+      allow get: if isCurrentUser(userId);
+      allow list: if false;
       allow create: if userCreateIsValid(userId);
       allow update: if userUpdateIsValid(userId);
       allow delete: if false;
