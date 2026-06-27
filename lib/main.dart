@@ -1,3 +1,4 @@
+import 'package:dev_venture/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dev_venture/screens/home_screen.dart';
@@ -46,8 +47,8 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
 
       // TELA INICIAL
-      home: const CadastroScreen(),
-
+      // home: const CadastroScreen(),
+      home:const ProfileScreen(userId: "1"),
       // ROTAS
       routes: {
         '/home': (context) =>
