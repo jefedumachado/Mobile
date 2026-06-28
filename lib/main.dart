@@ -9,9 +9,12 @@ import 'package:dev_venture/screens/activities_screen.dart';
 import 'package:dev_venture/screens/cadastro_screen.dart';
 import 'package:dev_venture/screens/login_screen.dart';
 import 'package:dev_venture/screens/ranking_screen.dart';
+import 'package:dev_venture/utils/performance/frame_monitor.dart';
+import 'package:dev_venture/utils/performance/perf_navigator_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FrameMonitor.instance.start();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
