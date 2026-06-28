@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
 
       // TELA INICIAL
-      home: const LoginScreen(),
+      home: const CadastroScreen(),
 
       // ROTAS
       routes: {
@@ -57,7 +57,10 @@ class _MyAppState extends State<MyApp> {
         '/home': (context) =>
             HomeScreen(onThemeChanged: _onThemeChange, themeMode: _themeMode),
         '/activities': (context) => ActivitiesScreen(),
-        '/ranking': (context) => const RankingScreen(),
+        '/ranking': (context) => RankingScreen(
+          onThemeChanged: _onThemeChange,
+          themeMode: _themeMode,
+        ),
         '/theme-demo': (context) => const ThemeDemoPage(),
       },
     );

@@ -1,13 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class RankingScreen extends StatelessWidget {
-  const RankingScreen({super.key});
+class RankingScreen extends StatefulWidget {
+  final VoidCallback onThemeChanged;
+  final ThemeMode themeMode;
+
+  const RankingScreen({
+    super.key,
+    required this.onThemeChanged,
+    required this.themeMode,
+  });
 
   @override
+  State<RankingScreen> createState() => _RankingScreenState();
+}
+
+class _RankingScreenState extends State<RankingScreen> {
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    IconData iconTheme;
+    if (widget.themeMode == ThemeMode.system) {
+      iconTheme = Icons.brightness_auto;
+    } else if (widget.themeMode == ThemeMode.light) {
+      iconTheme = Icons.wb_sunny;
+    } else {
+      iconTheme = Icons.nightlight_round;
+    }
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Ranking Global')),
+      appBar: AppBar(
+        title: const Text('Ranking Global'),
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor: theme.colorScheme.onPrimary,
+        actions: [
+          IconButton(
+            icon: Icon(iconTheme),
+            tooltip: 'Tema: ${widget.themeMode.name}',
+            onPressed: widget.onThemeChanged,
+          ),
+        ],
+      ),
 
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
