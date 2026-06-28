@@ -7,6 +7,7 @@ import 'package:dev_venture/screens/theme_demo.dart';
 import 'package:dev_venture/screens/activities_screen.dart';
 import 'package:dev_venture/screens/cadastro_screen.dart';
 import 'package:dev_venture/screens/login_screen.dart';
+import 'package:dev_venture/screens/ranking_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         '/home': (context) =>
             HomeScreen(onThemeChanged: _onThemeChange, themeMode: _themeMode),
         '/activities': (context) => ActivitiesScreen(),
+        '/ranking': (context) => const RankingScreen(),
         '/theme-demo': (context) => const ThemeDemoPage(),
       },
     );
