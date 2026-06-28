@@ -6,6 +6,7 @@ import 'package:dev_venture/theme/light_theme.dart';
 import 'package:dev_venture/screens/theme_demo.dart';
 import 'package:dev_venture/screens/activities_screen.dart';
 import 'package:dev_venture/screens/cadastro_screen.dart';
+import 'package:dev_venture/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,10 +47,12 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
 
       // TELA INICIAL
-      home: const CadastroScreen(),
+      home: const LoginScreen(),
 
       // ROTAS
       routes: {
+        '/login': (context) => const LoginScreen(),
+        '/cadastro': (context) => const CadastroScreen(),
         '/home': (context) =>
             HomeScreen(onThemeChanged: _onThemeChange, themeMode: _themeMode),
         '/activities': (context) => ActivitiesScreen(),
