@@ -1,12 +1,23 @@
-import 'package:dev_venture/screens/home_screen.dart';
+import 'package:dev_venture/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:dev_venture/screens/home_screen.dart';
 import 'package:dev_venture/theme/dark_theme.dart';
 import 'package:dev_venture/theme/light_theme.dart';
 import 'package:dev_venture/screens/theme_demo.dart';
 import 'package:dev_venture/screens/activities_screen.dart';
 import 'package:dev_venture/screens/cadastro_screen.dart';
+import 'package:dev_venture/screens/login_screen.dart';
+import 'package:dev_venture/screens/ranking_screen.dart';
+import 'package:dev_venture/utils/performance/frame_monitor.dart';
+import 'package:dev_venture/utils/performance/perf_navigator_observer.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  FrameMonitor.instance.start();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -40,14 +51,23 @@ class _MyAppState extends State<MyApp> {
       darkTheme: AppDarkTheme.theme,
       themeMode: _themeMode,
 
+      // Mede o tempo de abertura de cada tela
+      navigatorObservers: [PerfNavigatorObserver()],
+
       // TELA INICIAL
       home: const CadastroScreen(),
 
       // ROTAS
       routes: {
+        '/login': (context) => const LoginScreen(),
+        '/cadastro': (context) => const CadastroScreen(),
         '/home': (context) =>
             HomeScreen(onThemeChanged: _onThemeChange, themeMode: _themeMode),
         '/activities': (context) => ActivitiesScreen(),
+        '/ranking': (context) => RankingScreen(
+          onThemeChanged: _onThemeChange,
+          themeMode: _themeMode,
+        ),
         '/theme-demo': (context) => const ThemeDemoPage(),
       },
     );
