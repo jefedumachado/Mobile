@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dev_venture/screens/theme_demo.dart';
 
 class ActivitiesScreen extends StatelessWidget {
   ActivitiesScreen({super.key});
@@ -50,16 +49,13 @@ class ActivitiesScreen extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 12),
               child: ListTile(
                 onTap: () {
-                  if (activity["title"] == "Criar Home") {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ThemeDemoPage()),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Atividade '${activity["title"]}' selecionada.")),
-                    );
-                  }
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Atividade '${activity["title"]}' selecionada.",
+                      ),
+                    ),
+                  );
                 },
                 leading: Icon(
                   activity["icon"],
