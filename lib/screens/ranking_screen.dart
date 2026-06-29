@@ -77,15 +77,22 @@ class _RankingScreenState extends State<RankingScreen> {
               String nomeJogador = data['nome'] ?? 'Jogador Anônimo';
               int pontuacao = data['pontuacao'] ?? 0;
 
-              return ListTile(
-                leading: CircleAvatar(child: Text('${index + 1}º')),
-                title: Text(
-                  nomeJogador,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                trailing: Text(
-                  '$pontuacao pts',
-                  style: const TextStyle(fontSize: 16, color: Colors.green),
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: ListTile(
+                  leading: CircleAvatar(child: Text('${index + 1}º')),
+                  title: Text(
+                    nomeJogador,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  trailing: Text(
+                    '$pontuacao pts',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               );
             },

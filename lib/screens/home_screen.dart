@@ -314,6 +314,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Nome Aluno",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Nível 14 - ARQUIMAGO",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: Text(
                       "Nenhuma atividade marcada para hoje.",
                       style: theme.textTheme.bodyMedium,
