@@ -1,8 +1,8 @@
+import 'package:dev_venture/components/dialogs-modal-notmodal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dev_venture/screens/activities_screen.dart';
-import 'package:dev_venture/components/custom_dialog.dart';
 import 'package:dev_venture/providers/atividade_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -90,8 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
               title: 'Dev Venture',
               message:
                   'Plataforma de trilhas de aprendizado para desenvolvedores. Versão 1.0.0.',
-              type: DialogType.info,
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.leaderboard),
+            tooltip: 'Ranking',
+            onPressed: () {
+              Navigator.pushNamed(context, '/ranking');
+            },
           ),
           IconButton(
             icon: Icon(iconTheme),
@@ -115,7 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: 'Nome Aluno',
                   message:
                       'Nível 14 - ARQUIMAGO\nPlano: Pleno\n\nEm breve você poderá editar seu perfil.',
-                  type: DialogType.info,
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -183,7 +188,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           title: 'Plano Pleno',
                           message:
                               'Você está no plano Pleno. Acesso completo a todas as trilhas e atividades.',
-                          type: DialogType.success,
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -396,7 +400,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: atividade.titulo,
                 message:
                     '${atividade.descricao}\n\nPontos ganhos: ${atividade.pontosGanhos}',
-                type: DialogType.success,
               ),
             );
           }).toList(),
@@ -429,11 +432,6 @@ class _HomeScreenState extends State<HomeScreen> {
           context: context,
           title: title,
           message: '$subtitle\n\nProgresso atual: $percent%',
-          type: percent == 100
-              ? DialogType.success
-              : percent >= 50
-              ? DialogType.info
-              : DialogType.warning,
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
