@@ -1,3 +1,4 @@
+import 'package:dev_venture/screens/profile_screen.dart';
 import 'package:dev_venture/firebase_options.dart';
 import 'package:dev_venture/providers/atividade_provider.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
         navigatorObservers: [PerfNavigatorObserver()],
 
         // TELA INICIAL
-        home: const CadastroScreen(),
+        home: const ProfileScreen(userId: "1"),
 
         // ROTAS
         routes: {
