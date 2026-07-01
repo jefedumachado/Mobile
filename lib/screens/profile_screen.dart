@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../models/user_model.dart';
 import '../models/atividade_model.dart';
 
-
 class ProfileScreen extends StatefulWidget {
   final String userId;
 
@@ -39,21 +38,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
       AtividadeModel(
         id: "act_101",
         titulo: "Integração do Layout Claro no Flutter",
+        descricao:
+            "Implementação de ajustes visuais e componentes no fluxo de perfil.",
         concluida: true,
+        pontos: 120,
         pontosGanhos: 120,
         data: DateTime.now().subtract(const Duration(hours: 4)),
       ),
       AtividadeModel(
         id: "act_102",
         titulo: "Mapeamento de Enums no FromMap",
+        descricao: "Correção no parsing de enums para o modelo de usuário.",
         concluida: true,
+        pontos: 80,
         pontosGanhos: 80,
         data: DateTime.now().subtract(const Duration(days: 2)),
       ),
       AtividadeModel(
         id: "act_103",
         titulo: "Correção de LateInitializationError no Future",
+        descricao:
+            "Tratamento de inicialização tardia em chamadas assíncronas.",
         concluida: true,
+        pontos: 150,
         pontosGanhos: 150,
         data: DateTime.now().subtract(const Duration(days: 4)),
       ),
@@ -85,8 +92,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: colorScheme.surfaceContainerLow ?? colorScheme.surface,
       appBar: AppBar(
         title: Text(
-            'Perfil do Desenvolvedor',
-            style: TextStyle(color: colorScheme.onSurface, fontWeight: FontWeight.bold)
+          'Perfil do Desenvolvedor',
+          style: TextStyle(
+            color: colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: colorScheme.surface,
         elevation: 0,
@@ -101,7 +111,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // CARD DE IDENTIFICAÇÃO E SENIORIDADE
             Card(
               color: colorScheme.surfaceContainer ?? colorScheme.surfaceVariant,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               elevation: 1,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -110,7 +122,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     CircleAvatar(
                       radius: 42,
                       backgroundColor: colorScheme.primaryContainer,
-                      child: Icon(Icons.code, size: 45, color: colorScheme.onPrimaryContainer),
+                      child: Icon(
+                        Icons.code,
+                        size: 45,
+                        color: colorScheme.onPrimaryContainer,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -124,7 +140,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Chip(
                       label: Text(
                         'Nível: ${_mockUser.level.name.toUpperCase()}',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: colorScheme.onPrimary),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.onPrimary,
+                        ),
                       ),
                       backgroundColor: colorScheme.primary,
                     ),
@@ -137,19 +156,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: colorScheme.onSurfaceVariant.withOpacity(0.8),
                       ),
                     ),
-                    Divider(height: 32, color: colorScheme.outlineVariant, thickness: 0.5),
+                    Divider(
+                      height: 32,
+                      color: colorScheme.outlineVariant,
+                      thickness: 0.5,
+                    ),
 
                     // BARRA DE PROGRESSO DE XP
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            'Progresso de Senioridade',
-                            style: TextStyle(color: colorScheme.onSurfaceVariant, fontWeight: FontWeight.w500)
+                          'Progresso de Senioridade',
+                          style: TextStyle(
+                            color: colorScheme.onSurfaceVariant,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         Text(
-                            '${_mockUser.points} / $maxPoints XP',
-                            style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold)
+                          '${_mockUser.points} / $maxPoints XP',
+                          style: TextStyle(
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
@@ -159,8 +188,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: LinearProgressIndicator(
                         value: progressFactor,
                         minHeight: 12,
-                        backgroundColor: colorScheme.surfaceContainerHighest ?? Colors.grey.withOpacity(0.2),
-                        valueColor: AlwaysStoppedAnimation<Color>(colorScheme.primary),
+                        backgroundColor:
+                            colorScheme.surfaceContainerHighest ??
+                            Colors.grey.withOpacity(0.2),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          colorScheme.primary,
+                        ),
                       ),
                     ),
                   ],
@@ -182,46 +215,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             _mockActivities.isEmpty
                 ? Text(
-                'Nenhuma atividade recente encontrada.',
-                style: TextStyle(color: colorScheme.onSurfaceVariant)
-            )
+                    'Nenhuma atividade recente encontrada.',
+                    style: TextStyle(color: colorScheme.onSurfaceVariant),
+                  )
                 : ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _mockActivities.length,
-              itemBuilder: (context, index) {
-                final atividade = _mockActivities[index];
-                String dataFormatada = "${atividade.data.day}/${atividade.data.month}/${atividade.data.year}";
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _mockActivities.length,
+                    itemBuilder: (context, index) {
+                      final atividade = _mockActivities[index];
+                      String dataFormatada =
+                          "${atividade.data.day}/${atividade.data.month}/${atividade.data.year}";
 
-                return Card(
-                  color: colorScheme.surface,
-                  margin: const EdgeInsets.symmetric(vertical: 6),
-                  elevation: 0.5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: colorScheme.outlineVariant ?? colorScheme.outline.withOpacity(0.1)),
+                      return Card(
+                        color: colorScheme.surface,
+                        margin: const EdgeInsets.symmetric(vertical: 6),
+                        elevation: 0.5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color:
+                                colorScheme.outlineVariant ??
+                                colorScheme.outline.withOpacity(0.1),
+                          ),
+                        ),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: colorScheme.tertiaryContainer,
+                            child: Icon(
+                              Icons.bolt,
+                              color: colorScheme.onTertiaryContainer,
+                            ),
+                          ),
+                          title: Text(
+                            atividade.titulo,
+                            style: TextStyle(
+                              color: colorScheme.onSurface,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Concluída em $dataFormatada',
+                            style: TextStyle(
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                          trailing: Text(
+                            '+${atividade.pontosGanhos} XP',
+                            style: const TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: colorScheme.tertiaryContainer,
-                      child: Icon(Icons.bolt, color: colorScheme.onTertiaryContainer),
-                    ),
-                    title: Text(
-                        atividade.titulo,
-                        style: TextStyle(color: colorScheme.onSurface, fontWeight: FontWeight.w500)
-                    ),
-                    subtitle: Text(
-                        'Concluída em $dataFormatada',
-                        style: TextStyle(color: colorScheme.onSurfaceVariant)
-                    ),
-                    trailing: Text(
-                      '+${atividade.pontosGanhos} XP',
-                      style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                  ),
-                );
-              },
-            ),
           ],
         ),
       ),
