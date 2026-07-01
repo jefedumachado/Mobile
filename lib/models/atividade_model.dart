@@ -3,40 +3,43 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AtividadeModel {
   final String id;
   final String titulo;
-  final bool concluida;
-  final int pontosGanhos;
+  final String descricao;
   final DateTime data;
+  final bool concluida;
+  final int pontos;
+  final int pontosGanhos;
 
   AtividadeModel({
     required this.id,
     required this.titulo,
-    this.concluida = false,
-    this.pontosGanhos = 0,
+    required this.descricao,
     required this.data,
+    required this.concluida,
+    required this.pontos,
+    this.pontosGanhos = 0,
   });
 
-  // Converte o modelo para um mapa (útil para salvar no Firestore se precisar)
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'titulo': titulo,
-      'concluida': concluida,
-      'pontosGanhos': pontosGanhos,
-      'data': Timestamp.fromDate(data),
-    };
-  }
-
-  // Cria o AtividadeModel a partir de um DocumentSnapshot do Firestore (usado na sua AtividadeService)
   factory AtividadeModel.fromFirestore(DocumentSnapshot doc) {
-    Map<String, dynamic> map = doc.data() as Map<String, dynamic>;
+    final map = doc.data() as Map<String, dynamic>;
     return AtividadeModel(
       id: doc.id,
       titulo: map['titulo'] ?? '',
+      descricao: map['descricao'] ?? '',
+      data: (map['data'] as Timestamp?)?.toDate() ?? DateTime.now(),
       concluida: map['concluida'] ?? false,
-      pontosGanhos: map['pontosGanhos']?.toInt() ?? 0,
-      data: map['data'] != null
-          ? (map['data'] as Timestamp).toDate()
-          : DateTime.now(),
+      pontos: map['pontos'] ?? 0,
+      pontosGanhos: map['pontosGanhos'] ?? 0,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'titulo': titulo,
+      'descricao': descricao,
+      'data': Timestamp.fromDate(data),
+      'concluida': concluida,
+      'pontos': pontos,
+      'pontosGanhos': pontosGanhos,
+    };
   }
 }
